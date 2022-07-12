@@ -10,7 +10,7 @@
         <b-form-select id="breed" v-model="selected" :options="breedOptions">
           <!-- This slot appears above the options from 'options' prop -->
           <template #first>
-            <b-form-select-option :value="null" disabled>Select breed</b-form-select-option>
+            <b-form-select-option :value="null">Select breed</b-form-select-option>
           </template>
         </b-form-select>
       </div>

@@ -50,6 +50,8 @@ export default {
     // Whenever breedId changes, get cats
     watch(breedId, value => {
       getCats({ breedId: value });
+    }, {
+      immediate: true,
     });
 
     return {

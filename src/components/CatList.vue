@@ -9,7 +9,9 @@
       <b-col md="3" sm="6" v-for="cat in catList" :key="cat.id">
         <b-card title="" :img-src="cat.url" img-alt="Image" img-top tag="article" style="max-width: 20rem;"
           class="mb-2">
-          <b-button href="#" variant="primary" class="w-100">View details</b-button>
+          <b-button :to="`/cats/${cat.id}`" variant="primary" class="w-100">
+            View details
+          </b-button>
         </b-card>
       </b-col>
     </b-row>

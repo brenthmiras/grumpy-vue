@@ -51,12 +51,16 @@ const actions = {
 
     try {
 
+      dispatch('setLoading', true);
+
       // Fire http request to cats server
       const res = await CatApi.getCats({ page, limit, breedId });
       
       const totalCats = res.headers['pagination-count'];
 
       const hasMore = (page * limit) < Number(totalCats);
+
+      dispatch('setLoading', false);
       
       // Save fetched breeds to store
       commit('SET_CATS', {
@@ -69,6 +73,8 @@ const actions = {
     catch (err) {
       // TODO: Show toast
       console.log(err);
+
+      dispatch('setLoading', false);
     }
   },
   async moreCats({ commit, state, dispatch }) {

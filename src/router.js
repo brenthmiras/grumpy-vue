@@ -7,8 +7,8 @@ const routes = [
   },
   {
     path: '/cats',
-    name: 'CatList',
-    component: () => import('./views/CatList.vue'),
+    name: 'Cats',
+    component: () => import('./views/Cats.vue'),
   },
   {
     path: '/cats/:catId',

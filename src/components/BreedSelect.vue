@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { onMounted } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { createNamespacedHelpers } from 'vuex-composition-helpers/dist';
 
 const { useGetters, useActions } = createNamespacedHelpers('Cat');
@@ -27,7 +27,9 @@ const { useGetters, useActions } = createNamespacedHelpers('Cat');
 export default {
   setup() {
 
-    const { getBreeds } = useActions(['getBreeds']);
+    const selected = ref();
+
+    const { getBreeds, selectBreed } = useActions(['getBreeds', 'selectBreed']);
     const { breedOptions } = useGetters(['breedOptions']);
 
     // Execute once upon mounting...
@@ -37,7 +39,12 @@ export default {
       getBreeds();
     });
 
+    watch(selected, value => {
+      selectBreed({ breedId: value});
+    });
+
     return {
+      selected,
       breedOptions,
     };
   },

@@ -6,11 +6,18 @@
 
     <b-row>
       <b-col md="3" sm="6" v-for="cat in catList" :key="cat.id">
-
-        <b-card title="" :img-src="cat.url" img-alt="Image" img-top
-          tag="article" style="max-width: 20rem;" class="mb-2">
+        <b-card title="" :img-src="cat.url" img-alt="Image" img-top tag="article" style="max-width: 20rem;"
+          class="mb-2">
           <b-button href="#" variant="primary" class="w-100">View details</b-button>
         </b-card>
+      </b-col>
+    </b-row>
+
+    <b-row>
+      <b-col md="3" sm="6">
+        <b-button variant="success" @click="handleLoadMore()" :disabled="isLoading" v-if="catList.length">
+          {{isLoading ? 'Loading cats...' : 'Load more'}}
+        </b-button>
       </b-col>
     </b-row>
   </div>
@@ -25,8 +32,12 @@ const { useState, useActions } = createNamespacedHelpers('Cat');
 export default {
   setup() {
 
-    const { breedId, catList } = useState(['breedId', 'catList']);
-    const { getCats } = useActions(['getCats']);
+    const { breedId, catList, isLoading } = useState(['breedId', 'catList', 'isLoading']);
+    const { getCats, moreCats } = useActions(['getCats', 'moreCats']);
+
+    const handleLoadMore = () => {
+      moreCats();
+    };
 
     // Whenever breedId changes, get cats
     watch(breedId, value => {
@@ -35,6 +46,8 @@ export default {
 
     return {
       catList,
+      handleLoadMore,
+      isLoading,
     };
   },
 }

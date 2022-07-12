@@ -5,6 +5,10 @@ const initialState = {
   breedList: [],
 
   catList: [],
+  page: 1,
+  limit: 10,
+  isLoading: false,
+
   currentCat: {},
 };
 
@@ -61,6 +65,33 @@ const actions = {
       console.log(err);
     }
   },
+  async moreCats({ commit, state, dispatch }) {
+
+    const { page, limit, breedId } = state;
+
+    try {
+
+      dispatch('setLoading', true);
+
+      // Fire http request to cats server
+      const res = await CatApi.getCats({ page: page + 1, limit, breedId });
+
+      dispatch('setLoading', false);
+
+      // Save fetched breeds to store
+      commit('APPEND_CATS', {
+        cats: res.data,
+      });
+    }
+    catch (err) {
+      // TODO: Show toast
+      console.log(err);
+      dispatch('setLoading', false);
+    }
+  },
+  setLoading({ commit }, payload) {
+    commit('SET_LOADING', payload);
+  },
 };
 
 const mutations = {
@@ -73,6 +104,12 @@ const mutations = {
   },
   SET_CATS(state, payload) {
     state.catList = payload.cats;
+  },
+  APPEND_CATS(state, payload) {
+    state.catList = state.catList.concat(payload.cats);
+  },
+  SET_LOADING(state, payload) {
+    state.isLoading = payload;
   },
 };
 

@@ -1,7 +1,28 @@
-# Vue 3 + Vite
+# grumpy-vue
+Implemented using Vue 3 + Vite
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Getting Started
+You can download this repo or clone using below command.
+```
+git clone git@github.com:brenthmiras/grumpy-vue.git
+```
+or from **Download Zip**
+```
+https://github.com/brenthmiras/grumpy-vue
+```
+### Project Setup
+Once you clone or download project go into you folder
+```
+$ cd grumpy-vue
+```
 
-## Recommended IDE Setup
+### Installing
+This will install all dependencies
+```
+$ yarn
+```
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+### Running
+```
+$ yarn dev
+```

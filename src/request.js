@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://thecatapi.com/v1/';
+const BASE_URL = 'https://api.thecatapi.com/v1/';
 const API_KEY = '019b8f6a-f5fb-4584-8d10-51467cbaf26e';
 
 /* 
@@ -12,4 +12,4 @@ const instance = axios.create({
   headers: {'x-api-key': API_KEY}
 });
 
-return instance;
+export default instance;

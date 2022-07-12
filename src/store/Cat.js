@@ -1,16 +1,52 @@
+import CatApi from '../api/cat';
+
 const initialState = {
-  breedList: {},
+  breedList: [],
   catList: {},
   currentCat: {},
 };
 
 const state = () => (initialState);
 
-const actions = {};
+const actions = {
+  async getBreeds({ commit }) {
+    try {
 
-const mutations = {};
+      // Fire http request to cats server
+      const res = await CatApi.getBreeds();
 
-const getters = {};
+      // Save fetched breeds to store
+      commit('SET_BREEDS', {
+        breeds: res.data,
+      });
+    }
+    catch (err) {
+      // TODO: Show toast
+      console.log(err);
+    }
+  }
+};
+
+const mutations = {
+  SET_BREEDS(state, payload) {
+    // mutate state
+    state.breedList = payload.breeds;
+  },
+};
+
+const getters = {
+  /* 
+    Format breeds to be compatible with BootstrapVue's select component
+  */
+  breedOptions(state) {
+    return state.breedList.map(breed => {
+      return {
+        value: breed.id,
+        text: breed.name,
+      };
+    });
+  }
+};
 
 export default {
   namespaced: true,

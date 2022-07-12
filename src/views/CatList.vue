@@ -1,5 +1,5 @@
 <template>
   <div class="container">
-    <h1>Cats</h1>
+    <h1>Cat Browser</h1>
   </div>
 </template>

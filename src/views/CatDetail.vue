@@ -1,28 +1,55 @@
 <template>
   <div id="cat-detail" class="container">
-    <b-card title="" header-tag="header" footer-tag="footer" no-body>
+    <h3 v-if="isLoading">Loading...</h3>
+    <b-card title="" header-tag="header" footer-tag="footer" no-body v-else>
       <template #header>
         <b-button :to="`/cats`" variant="primary">
           Back
         </b-button>
       </template>
 
-      <img src="https://cdn2.thecatapi.com/images/xnzzM6MBI.jpg" alt="" class="card-img">
+      <img :src="currentCat.url" alt="" class="card-img">
 
       <div class="card-body">
-        <h4>Abyssinian</h4>
-        <h5>Origin: Egypt</h5>
-        <h6>Active, Energetic, Independent, Intelligent, Gentle</h6>
-        <p>The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both
-          people and other animals.</p>
+        <h4>{{currentCat.name}}</h4>
+        <h5>Origin: {{currentCat.origin}}</h5>
+        <h6>{{currentCat.temperament}}</h6>
+        <p>{{currentCat.description}}</p>
       </div>
     </b-card>
   </div>
 </template>
 
 <script>
+import { watch, toRefs } from 'vue';
+import { createNamespacedHelpers } from 'vuex-composition-helpers/dist';
+
+const { useActions, useState, useGetters } = createNamespacedHelpers('Cat');
+
 export default {
-  setup(props) {},
+  props: {
+    catId: String,
+  },
+  setup(props) {
+
+    const catId = toRefs(props).catId;
+
+    const { getCatDetail } = useActions(['getCatDetail']);
+    const { isLoading } = useState(['isLoading', 'currentCat']);
+    const { currentCat } = useGetters(['currentCat']);
+
+    // Everytime catId changes, fetch cat details
+    watch(catId, value => {
+      getCatDetail({ catId: value });
+    }, {
+      immediate: true,
+    });
+
+    return {
+      isLoading,
+      currentCat,
+    };
+  },
 }
 </script>
 

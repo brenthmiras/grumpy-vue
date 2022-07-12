@@ -121,6 +121,31 @@ const actions = {
       hasMore: true,
     });
   },
+  async getCatDetail({ commit, dispatch }, payload) {
+
+    const { catId } = payload;
+
+    try {
+
+      dispatch('setLoading', true);
+
+      // Fire http request to cats server
+      const res = await CatApi.getCatDetail({ catId });
+
+      dispatch('setLoading', false);
+      
+      // Save fetched breeds to store
+      commit('SET_CURRENT_CAT', {
+        cat: res.data,
+      });
+    }
+    catch (err) {
+      // TODO: Show toast
+      console.log(err);
+
+      dispatch('setLoading', false);
+    }
+  },
 };
 
 const mutations = {
@@ -152,6 +177,9 @@ const mutations = {
   SET_LOADING(state, payload) {
     state.isLoading = payload;
   },
+  SET_CURRENT_CAT(state, payload) {
+    state.currentCat = payload.cat;
+  },
 };
 
 const getters = {
@@ -168,6 +196,17 @@ const getters = {
   },
   catList(state) {
     return state.catList;
+  },
+  currentCat(state) {
+
+    if (!state.currentCat.id) return {};
+
+    const data = state.currentCat.breeds[0];
+    
+    return {
+      ...data,
+      url: state.currentCat.url,
+    };
   },
 };
 

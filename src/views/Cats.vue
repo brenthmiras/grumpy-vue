@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    
+  <div id="cats" class="container">
+
     <h1>Cat Browser</h1>
 
     <BreedSelect />
@@ -21,3 +21,9 @@ export default {
   setup() {},
 }
 </script>
+
+<style scoped>
+ #cats {
+  padding: 20px 0;
+ }
+</style>

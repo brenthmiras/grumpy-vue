@@ -8,9 +8,10 @@ const getBreeds = () => {
 const getCats = ({page, limit, breedId}) => {
 
   const params = {
-    page,
+    page: page - 1,
     limit,
     breed_id: breedId,
+    order: 'DESC',
   };
 
   return request.get('/images/search', {

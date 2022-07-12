@@ -16,9 +16,9 @@
       </b-col>
     </b-row>
 
-    <b-row v-if="catList.length && hasMore">
+    <b-row v-if="hasMore">
       <b-col md="3" sm="6">
-        <b-button variant="success" @click="handleLoadMore()" :disabled="isLoading">
+        <b-button variant="success" @click="handleLoadMore()" :disabled="isLoading || !catList.length">
           {{ isLoading ? 'Loading cats...' : 'Load more' }}
         </b-button>
       </b-col>

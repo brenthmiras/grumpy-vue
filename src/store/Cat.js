@@ -8,7 +8,7 @@ const initialState = {
   page: 1,
   limit: 10,
   isLoading: false,
-  hasMore: false,
+  hasMore: true,
 
   currentCat: {},
 };
@@ -110,6 +110,9 @@ const actions = {
   clearCats({commit}) {
     commit('SET_CATS', {
       cats: [],
+      page: 1,
+      limit: 10,
+      hasMore: true,
     });
   },
 };

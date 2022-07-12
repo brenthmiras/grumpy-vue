@@ -40,15 +40,13 @@ const actions = {
       breedId,
     });
   },
-  async getCats({ commit }, payload) {
+  async getCats({ commit, dispatch }, payload) {
 
     const { page = 1, limit = 10, breedId } = payload;
 
     // When selecting empty breed, empty cats
     if (!breedId) {
-      return commit('SET_CATS', {
-        cats: [],
-      });
+      return dispatch('clearCats');
     }
 
     try {
@@ -89,7 +87,7 @@ const actions = {
       const totalCats = res.headers['pagination-count'];
 
       const hasMore = (nextPage * limit) < Number(totalCats);
-      debugger
+      
       dispatch('setLoading', false);
 
       // Save fetched breeds to store
@@ -108,6 +106,11 @@ const actions = {
   },
   setLoading({ commit }, payload) {
     commit('SET_LOADING', payload);
+  },
+  clearCats({commit}) {
+    commit('SET_CATS', {
+      cats: [],
+    });
   },
 };
 

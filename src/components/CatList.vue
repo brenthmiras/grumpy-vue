@@ -33,11 +33,16 @@ export default {
   setup() {
 
     const { breedId, catList, isLoading, hasMore } = useState(['breedId', 'catList', 'isLoading', 'hasMore']);
-    const { getCats, moreCats } = useActions(['getCats', 'moreCats']);
+    const { getCats, moreCats, clearCats } = useActions(['getCats', 'moreCats', 'clearCats']);
 
     const handleLoadMore = () => {
       moreCats();
     };
+
+    // Whenever breedId changes, clear current cats
+    watch(breedId, () => {
+      clearCats();
+    });
 
     // Whenever breedId changes, get cats
     watch(breedId, value => {

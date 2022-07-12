@@ -19,15 +19,18 @@
 </template>
 
 <script>
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { createNamespacedHelpers } from 'vuex-composition-helpers/dist';
+import { useRoute } from 'vue-router';
 
 const { useGetters, useActions } = createNamespacedHelpers('Cat');
 
 export default {
+  
   setup() {
 
-    const selected = ref();
+    const route = useRoute();
+    const selected = ref(route.query.breed);
 
     const { getBreeds, selectBreed } = useActions(['getBreeds', 'selectBreed']);
     const { breedOptions } = useGetters(['breedOptions']);
@@ -41,6 +44,8 @@ export default {
 
     watch(selected, value => {
       selectBreed({ breedId: value});
+    }, {
+      immediate: true
     });
 
     return {

@@ -3,7 +3,7 @@
     <h3 v-if="isLoading">Loading...</h3>
     <b-card title="" header-tag="header" footer-tag="footer" no-body v-else>
       <template #header>
-        <b-button :to="`/cats`" variant="primary">
+        <b-button :to="{ path: '/cats', query: { breed: currentCat.id }}" variant="primary">
           Back
         </b-button>
       </template>

@@ -13,10 +13,10 @@
       </b-col>
     </b-row>
 
-    <b-row>
+    <b-row v-if="catList.length && hasMore">
       <b-col md="3" sm="6">
-        <b-button variant="success" @click="handleLoadMore()" :disabled="isLoading" v-if="catList.length">
-          {{isLoading ? 'Loading cats...' : 'Load more'}}
+        <b-button variant="success" @click="handleLoadMore()" :disabled="isLoading">
+          {{ isLoading ? 'Loading cats...' : 'Load more' }}
         </b-button>
       </b-col>
     </b-row>
@@ -32,7 +32,7 @@ const { useState, useActions } = createNamespacedHelpers('Cat');
 export default {
   setup() {
 
-    const { breedId, catList, isLoading } = useState(['breedId', 'catList', 'isLoading']);
+    const { breedId, catList, isLoading, hasMore } = useState(['breedId', 'catList', 'isLoading', 'hasMore']);
     const { getCats, moreCats } = useActions(['getCats', 'moreCats']);
 
     const handleLoadMore = () => {
@@ -48,6 +48,7 @@ export default {
       catList,
       handleLoadMore,
       isLoading,
+      hasMore,
     };
   },
 }

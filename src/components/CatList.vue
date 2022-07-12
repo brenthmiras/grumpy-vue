@@ -1,6 +1,7 @@
 <template>
   <div class="row">
-    <div class="col-12" style="margin-bottom: 20px;">
+
+    <div class="col-12" style="margin-bottom: 20px;" v-if="!catList.length">
       No cats available
     </div>
 
